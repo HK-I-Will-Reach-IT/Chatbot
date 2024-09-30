@@ -1,138 +1,155 @@
-import React, { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counseling Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            border: 1px solid transparent;
+            border-bottom: none;
+        }
+        .tab.active {
+            border-color: #ccc;
+            background-color: #f0f0f0;
+        }
+        .card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .chat-container {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+        .message.user {
+            text-align: right;
+        }
+        .message.bot {
+            text-align: left;
+        }
+        .input-container {
+            display: flex;
+        }
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .input-container button {
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
 
-const IconLungs = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M6.081 20C6.033 20 6 19.967 6 19.919V9.546a.75.75 0 0 1 .75-.75h.498a.75.75 0 0 1 .75.75v1.836c0 .604.292 1.17.783 1.522l1.611 1.157C11.44 15.336 12 16.387 12 17.52V20" />
-    <path d="M18 20V9.546a.75.75 0 0 0-.75-.75h-.498a.75.75 0 0 0-.75.75v1.836c0 .604-.292 1.17-.783 1.522l-1.612 1.157C12.559 15.336 12 16.387 12 17.52V20" />
-    <path d="M9 13H7" />
-    <path d="M15 13h2" />
-    <path d="M12 20v-3" />
-  </svg>
-);
+<h1>Counseling Bot</h1>
+<div class="tabs">
+    <div class="tab active" onclick="showTab('chat')">Chat</div>
+    <div class="tab" onclick="showTab('breathing')">Breathing</div>
+    <div class="tab" onclick="showTab('sleep')">Sleep</div>
+    <div class="tab" onclick="showTab('diet')">Diet</div>
+</div>
 
-const IconMessageSquare = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-  </svg>
-);
-
-const IconMoon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-  </svg>
-);
-
-const IconUtensils = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
-    <path d="M7 2v20" />
-    <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
-  </svg>
-);
-
-const CounsellingBot = () => {
-  const [chatMessages, setChatMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState('');
-
-  const handleSendMessage = () => {
-    if (inputMessage.trim() !== '') {
-      setChatMessages([...chatMessages, { text: inputMessage, sender: 'user' }]);
-      setInputMessage('');
-      // Simulate bot response
-      setTimeout(() => {
-        setChatMessages(prev => [...prev, { text: "I'm here to listen and help. How are you feeling today?", sender: 'bot' }]);
-      }, 1000);
-    }
-  };
-
-  return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">Counselling Bot</h1>
-      <Tabs defaultValue="chat">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="chat">Chat</TabsTrigger>
-          <TabsTrigger value="breathing">Breathing</TabsTrigger>
-          <TabsTrigger value="sleep">Sleep</TabsTrigger>
-          <TabsTrigger value="diet">Diet</TabsTrigger>
-        </TabsList>
-        <TabsContent value="chat">
-          <Card>
-            <CardHeader>
-              <CardTitle>Self-Reflection Chat</CardTitle>
-              <CardDescription>Talk to our bot and reflect on your thoughts and feelings.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-64 overflow-y-auto mb-4 p-2 border rounded">
-                {chatMessages.map((msg, index) => (
-                  <div key={index} className={`mb-2 ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
-                    <span className={`inline-block p-2 rounded ${msg.sender === 'user' ? 'bg-blue-100' : 'bg-gray-100'}`}>
-                      {msg.text}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <div className="flex">
-                <Input
-                  type="text"
-                  placeholder="Type your message..."
-                  value={inputMessage}
-                  onChange={(e) => setInputMessage(e.target.value)}
-                  className="flex-grow mr-2"
-                />
-                <Button onClick={handleSendMessage}>Send</Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="breathing">
-          <Card>
-            <CardHeader>
-              <CardTitle>Breathing Exercises</CardTitle>
-              <CardDescription>Follow guided breathing techniques to relax and reduce stress.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center">
-                <IconLungs />
-                <Button className="mt-4">Start 4-7-8 Breathing</Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="sleep">
-          <Card>
-            <CardHeader>
-              <CardTitle>Sleep Tracker</CardTitle>
-              <CardDescription>Monitor your sleep patterns and get insights.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center">
-                <IconMoon />
-                <Button className="mt-4">Log Sleep</Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="diet">
-          <Card>
-            <CardHeader>
-              <CardTitle>Diet Tracker</CardTitle>
-              <CardDescription>Keep track of your meals and nutritional intake.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center">
-                <IconUtensils />
-                <Button className="mt-4">Log Meal</Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+<div id="chat" class="card tab-content">
+    <h2>Self-Reflection Chat</h2>
+    <div class="chat-container" id="chatMessages"></div>
+    <div class="input-container">
+        <input type="text" id="inputMessage" placeholder="Type your message...">
+        <button onclick="handleSendMessage()">Send</button>
     </div>
-  );
-};
+</div>
 
-export default CounsellingBot;
+<div id="breathing" class="card tab-content" style="display:none;">
+    <h2>Breathing Exercises</h2>
+    <p>Follow guided breathing techniques to relax and reduce stress.</p>
+    <button>Start 4-7-8 Breathing</button>
+</div>
+
+<div id="sleep" class="card tab-content" style="display:none;">
+    <h2>Sleep Tracker</h2>
+    <p>Monitor your sleep patterns and get insights.</p>
+    <button>Log Sleep</button>
+</div>
+
+<div id="diet" class="card tab-content" style="display:none;">
+    <h2>Diet Tracker</h2>
+    <p>Keep track of your meals and nutritional intake.</p>
+    <button>Log Meal</button>
+</div>
+
+<script>
+    let chatMessages = [];
+
+    function showTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(div => {
+            div.style.display = 'none';
+        });
+        document.getElementById(tab).style.display = 'block';
+        
+        document.querySelectorAll('.tab').forEach(div => {
+            div.classList.remove('active');
+        });
+        document.querySelector(`.tab:contains(${tab})`).classList.add('active');
+    }
+
+    function handleSendMessage() {
+        const inputMessage = document.getElementById('inputMessage');
+        if (inputMessage.value.trim() !== '') {
+            chatMessages.push({ text: inputMessage.value, sender: 'user' });
+            inputMessage.value = '';
+            updateChat();
+            setTimeout(() => {
+                chatMessages.push({ text: "I'm here to listen and help. How are you feeling today?", sender: 'bot' });
+                updateChat();
+            }, 1000);
+        }
+    }
+
+    function updateChat() {
+        const chatMessagesDiv = document.getElementById('chatMessages');
+        chatMessagesDiv.innerHTML = '';
+        chatMessages.forEach(msg => {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${msg.sender}`;
+            messageDiv.textContent = msg.text;
+            chatMessagesDiv.appendChild(messageDiv);
+        });
+        chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+    }
+
+    // Show the chat tab by default
+    showTab('chat');
+</script>
+
+</body>
+</html>
