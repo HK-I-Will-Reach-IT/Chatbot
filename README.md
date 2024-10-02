@@ -1,4 +1,4 @@
-Our Project, Auraise aims to help people
+Our Project, Auraise aims to help people by using AI to provide personalised and effective solutions to users regarding Mental stress, Anxiety and Emotional-wellbeing. Our powerful AI chatbot, "Auraise" aims to provide counselling/therapy sessions while also motivating the user, enhancing their mood and happiness levels.
 
 _______________________________________________________________________________________
 The Frontend of our website is hosted on - https://hk-i-will-reach-it.github.io/Chatbot/
