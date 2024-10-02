@@ -189,9 +189,9 @@
                 chatMessages.innerHTML += '<p><strong>You:</strong> ' + message + '</p>';
                 input.value = '';
                 
-                // Updated AI response
+                // Updated AI response with "Auraise" instead of "AI"
                 setTimeout(function() {
-                    chatMessages.innerHTML += '<p><strong>AI:</strong> Hi! I am happy to help!</p>';
+                    chatMessages.innerHTML += '<p><strong>Auraise:</strong> Hi! I am happy to help!</p>';
                     chatMessages.scrollTop = chatMessages.scrollHeight;
                 }, 1000);
             }
